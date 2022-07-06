@@ -111,9 +111,9 @@ class LaravelServiceProvider extends ServiceProvider {
      */
     private function registerArtisanCommands() {
         $this->commands([
-            \BackupManager\Laravel\LaravelDbBackupCommand::class,
-            \BackupManager\Laravel\LaravelDbRestoreCommand::class,
-            \BackupManager\Laravel\LaravelDbListCommand::class,
+            \Bogordesain\BackupManager\LaravelDbBackupCommand::class,
+            \Bogordesain\BackupManager\LaravelDbRestoreCommand::class,
+            \Bogordesain\BackupManager\LaravelDbListCommand::class,
         ]);
     }
 
