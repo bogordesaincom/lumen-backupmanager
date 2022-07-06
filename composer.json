@@ -34,7 +34,7 @@
     },
     "laravel": {
       "providers": [
-        "Bogordesain\\BackupManager\\Laravel55ServiceProvider"
+        "Bogordesain\\BackupManager\\Lumen55ServiceProvider"
       ]
     }
   },
