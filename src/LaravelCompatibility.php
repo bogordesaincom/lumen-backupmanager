@@ -9,7 +9,7 @@ use Symfony\Component\Console\Exception\InvalidArgumentException;
  * Class Laravel5Compatibility
  * @package BackupManager\Laravel
  */
-trait Laravel55Compatibility {
+trait LaravelCompatibility {
     /**
      * @param $headers
      * @param $rows

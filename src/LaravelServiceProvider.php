@@ -1,5 +1,6 @@
 <?php 
 
+
 namespace Bogordesain\BackupManager;
 
 use BackupManager\Databases;
@@ -14,10 +15,20 @@ use BackupManager\ShellProcessing\ShellProcessor;
  * Class BackupManagerServiceProvider
  * @package BackupManager\Laravel
  */
-class Lumen55ServiceProvider extends ServiceProvider {
+class LaravelServiceProvider extends ServiceProvider {
     use GetDatabaseConfig;
 
     protected $defer = true;
+
+    /**
+     * Bootstrap the application events.
+     *
+     * @return void
+     */
+    public function boot() {
+        $configPath = __DIR__ . '/../config/backup-manager.php';
+        $this->publishes([$configPath => config_path('backup-manager.php')], 'config');
+    }
 
     /**
      * Register the service provider.
@@ -43,6 +54,7 @@ class Lumen55ServiceProvider extends ServiceProvider {
         $this->app->bind(\BackupManager\Filesystems\FilesystemProvider::class, function ($app) {
             $provider = new Filesystems\FilesystemProvider(new Config($app['config']['backup-manager']));
             $provider->add(new Filesystems\Awss3Filesystem);
+            $provider->add(new Filesystems\GcsFilesystem);
             $provider->add(new Filesystems\DropboxFilesystem);
             $provider->add(new Filesystems\DropboxV2Filesystem);
             $provider->add(new Filesystems\FtpFilesystem);
@@ -88,7 +100,7 @@ class Lumen55ServiceProvider extends ServiceProvider {
      */
     private function registerShellProcessor() {
         $this->app->bind(\BackupManager\ShellProcessing\ShellProcessor::class, function () {
-            return new ShellProcessor(new Process(''));
+            return new ShellProcessor(new Process([], null, null, null, null));
         });
     }
 
@@ -99,9 +111,9 @@ class Lumen55ServiceProvider extends ServiceProvider {
      */
     private function registerArtisanCommands() {
         $this->commands([
-            \BackupManager\Laravel\Laravel55DbBackupCommand::class,
-            \BackupManager\Laravel\Laravel55DbRestoreCommand::class,
-            \BackupManager\Laravel\Laravel55DbListCommand::class,
+            \BackupManager\Laravel\LaravelDbBackupCommand::class,
+            \BackupManager\Laravel\LaravelDbRestoreCommand::class,
+            \BackupManager\Laravel\LaravelDbListCommand::class,
         ]);
     }
 

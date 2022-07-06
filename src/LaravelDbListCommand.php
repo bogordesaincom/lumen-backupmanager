@@ -1,13 +1,14 @@
 <?php 
 
+
 namespace Bogordesain\BackupManager;
 
 use Illuminate\Console\Command;
 
 /**
- * Class Laravel5DbBackupCommand
+ * Class Laravel5DbListCommand
  * @package BackupManager\Laravel
  */
-class Laravel55DbBackupCommand extends DbBackupCommand {
-    use Laravel55Compatibility;
+class LaravelDbListCommand extends DbListCommand {
+    use LaravelCompatibility;
 }
